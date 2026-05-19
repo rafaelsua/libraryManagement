@@ -8,6 +8,8 @@ import java.util.List;
 
 public class SampleData {
     
+    // TODO: Ejercicio 1 - descomenta todas las líneas de SAMPLE_BOOKS una vez implementes el constructor de Book
+    //   y descomenta también la línea books.addAll(SampleData.SAMPLE_BOOKS) en Library.loadSampleData()
     public static final List<Book> SAMPLE_BOOKS = Arrays.asList(
 //        new Book("El Quijote", "Miguel de Cervantes", "978-84-376-0494-7"),
 //        new Book("Cien años de soledad", "Gabriel García Márquez", "978-84-376-0494-8"),

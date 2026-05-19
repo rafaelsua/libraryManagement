@@ -1,5 +1,7 @@
 package es.ing.tomillo.library.model;
 
+import es.ing.tomillo.library.exception.BookNotAvailableException;
+import es.ing.tomillo.library.exception.MaxBorrowedBooksException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -48,12 +50,14 @@ public class User {
     // TODO: Implementar método prestarLibro según el ejercicio 2
     // Debe añadir un libro al array de libros prestados
     public void borrowBook(Book book) {
-        if (borrowedBooks.size() < MAX_BORROWED_BOOKS) {
-            borrowedBooks.add(book);
-            book.setAvailable(false);
-        } else {
-            System.out.println("No se pueden prestar más libros. Límite alcanzado.");
+        if (!book.isAvailable()) {
+            throw new BookNotAvailableException("El libro '" + book.getTitle() + "' no está disponible.");
         }
+        if (borrowedBooks.size() >= MAX_BORROWED_BOOKS) {
+            throw new MaxBorrowedBooksException("No se pueden prestar más de " + MAX_BORROWED_BOOKS + " libros.");
+        }
+        borrowedBooks.add(book);
+        book.setAvailable(false);
     }
 
     // TODO: Implementar método devolverLibro según el ejercicio 2

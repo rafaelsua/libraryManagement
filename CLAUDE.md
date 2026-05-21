@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a **teaching project** — a Java/Maven exercise where students implement a library management system. The codebase intentionally ships with empty methods marked `// TODO:` and stub returns. **Do not "fix" TODOs unsolicited**; they are the exercises. When asked to help, prefer guiding completion of the specific TODO the user mentions over completing the whole project.
 
-The README (`README.md`) lists the seven exercises (Book attributes/constructor, User borrow/return/reserve, Library CRUD/search, JUnit tests, search by title/author, reservations, optional JDBC challenge).
+The README (`README.md`) lists 8 exercises: Book (1), User borrow/return/reserve (2), Library CRUD (3), own tests (4), search by title/author (5), reservations (6), Loan with dates (7), Streams search (8). There is no JDBC exercise.
 
 ## Commands
 
@@ -19,19 +19,21 @@ mvn clean install                                   # full build
 mvn exec:java -Dexec.mainClass=es.ing.tomillo.library.service.Library  # run CLI (no exec plugin configured; use IDE or java -cp)
 ```
 
-The `Library` class has a `main()` with an interactive `Scanner`-based menu — run it directly from your IDE.
+The `LibraryCLI` class owns the interactive `Scanner`-based menu — run it from the IDE or via `mvn exec:java -Dexec.mainClass=es.ing.tomillo.library.service.LibraryCLI`.
 
 ## Architecture
 
-Java 17 + JUnit Jupiter 5.9.1. The only runtime dependency is the JDK; JUnit is test-scope. There is **no Spring, no persistence layer, no JDBC** despite the README's optional challenge — `LibraryJDBC` does not exist in the codebase.
+Java 17 + JUnit Jupiter 5.9.1. The only runtime dependency is the JDK; JUnit is test-scope. No Spring, no persistence, no JDBC.
 
-Package layout (note the package is `es.ing.tomillo.library`, while the Maven `groupId` is `es.ing`):
+Package layout (package `es.ing.tomillo.library`, Maven `groupId` is `es.ing`):
 
-- `model/Book` — entity (currently a stub; students implement fields, constructor, getters/setters, `toString`, `equals`)
-- `model/User` — entity with `borrowedBooks` list capped at `MAX_BORROWED_BOOKS = 5`; already implements `borrowBook`, `returnBook`, `reserveBook`, `equals` (by `id`)
-- `service/Library` — aggregates `List<User>` and `List<Book>`, loads `SampleData` in constructor, exposes add/borrow/return/search methods (most are stubs), and owns `main()`
-- `util/SampleData` — static lists of 10 sample users (active) and 10 sample books (commented out because `Book` has no constructor yet)
-- `test/.../LibraryTest` — three JUnit tests that **define the expected `Book` API**: constructor `Book(String title, String author, String isbn)`, `getTitle()`, `isAvailable()`, default `available = true`
+- `model/Book` — stub; students implement fields, constructor, getters/setters, `toString`, `equals`
+- `model/User` — entity with `borrowedBooks` list capped at `MAX_BORROWED_BOOKS = 5`; implements `borrowBook`, `returnBook`, `equals` (by `id`)
+- `model/Loan` — stub (exercise 7); students add `book`, `user`, `loanDate`, `dueDate`, constructor, getters, `isOverdue()`
+- `service/Library` — aggregates `List<User>` and `List<Book>`; most methods are stubs; also has `getAvailableBooks()` and `searchAllBooksByAuthor()` stubs for exercise 8
+- `service/LibraryCLI` — interactive menu, not modified by students
+- `util/SampleData` — sample users and books (books commented out until Book is implemented)
+- `test/.../LibraryTest` — 27 spec-first tests covering exercises 1–3, 5, 7, 8
 
 ## Key implementation contract
 
@@ -42,7 +44,7 @@ When implementing `Book`, the existing code in `User` and `Library` already call
 - `String getTitle()` — called by `LibraryTest`
 - Default `available` should be `true` (the borrow test asserts it flips to false)
 
-`LibraryTest.testReturnBook` asserts `assertNull(user.getBorrowedBooks().get(0))` after a return, which would throw `IndexOutOfBoundsException` against the current `User.returnBook` (which removes from the list). That test is inconsistent with the implementation — flag it to the user rather than silently changing `User` to match.
+The tests compile only once `Book` is implemented (exercise 1). Until then `mvn test` fails with "cannot find symbol" — this is intentional.
 
 ## Conventions
 

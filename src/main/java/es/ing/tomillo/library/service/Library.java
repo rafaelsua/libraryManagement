@@ -92,5 +92,15 @@ public class Library {
         return null;
     }
 
+    // TODO: Ejercicio 8 — usando stream().filter() devuelve la lista de libros disponibles
+    public List<Book> getAvailableBooks() {
+        return new ArrayList<>();
+    }
+
+    // TODO: Ejercicio 8 — usando stream().filter() devuelve todos los libros del autor dado (ignora mayúsculas)
+    public List<Book> searchAllBooksByAuthor(String author) {
+        return new ArrayList<>();
+    }
+
 }
 

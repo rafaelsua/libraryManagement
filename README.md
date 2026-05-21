@@ -141,19 +141,40 @@ Actualmente `User.reserveBook` está pendiente de implementar. Diseña e impleme
 
 ---
 
-### Ejercicio 7 — Desafío avanzado: persistencia con JDBC
+### Ejercicio 7 — Clase `Loan`: préstamos con fechas
 
-**Fichero:** `src/main/java/es/ing/tomillo/library/service/LibraryJDBC.java`
+**Fichero:** `src/main/java/es/ing/tomillo/library/model/Loan.java`
 
-Implementa la persistencia de libros usando JDBC con una base de datos H2 en memoria. El esqueleto ya está creado con los TODOs que guían la implementación.
+Implementa la clase `Loan` que representa un préstamo con control de fechas:
 
-Añade la dependencia H2 en `pom.xml` (instrucciones dentro del fichero `LibraryJDBC.java`) y completa los métodos:
+- **Atributos:** `book` (Book), `user` (User), `loanDate` (LocalDate), `dueDate` (LocalDate)
+- **Constructor:** `Loan(Book book, User user, LocalDate loanDate)` — calcula automáticamente `dueDate = loanDate.plusDays(14)`
+- **Getters** para todos los atributos
+- **`isOverdue()`** — devuelve `true` si hoy es posterior a `dueDate`
 
-- `createTable()` — crea la tabla `BOOKS`
-- `save(Book book)` — inserta o actualiza un libro
-- `findAll()` — recupera todos los libros
-- `findByTitle(String title)` — busca por título
-- `delete(String isbn)` — elimina un libro por ISBN
+> **Pista:** usa `LocalDate.now().isAfter(dueDate)` para comparar fechas.
+
+Tests que deben pasar: `loanStoresBookUserAndDates`, `loanIsNotOverdueWhenRecent`, `loanIsOverdueAfterDueDate`, `loanIsNotOverdueOnDueDate`
+
+---
+
+### Ejercicio 8 — Búsqueda con Streams
+
+**Fichero:** `src/main/java/es/ing/tomillo/library/service/Library.java`
+
+Implementa los dos métodos usando la API de Streams de Java (`stream().filter()...`):
+
+```java
+// Devuelve la lista de libros disponibles (isAvailable == true)
+public List<Book> getAvailableBooks() { ... }
+
+// Devuelve todos los libros del autor dado, ignorando mayúsculas
+public List<Book> searchAllBooksByAuthor(String author) { ... }
+```
+
+> **Pista:** `stream().filter(b -> ...).toList()`
+
+Tests que deben pasar: `getAvailableBooksReturnsAllWhenNoneBorrowed`, `getAvailableBooksExcludesBorrowedBooks`, `searchAllBooksByAuthorReturnsMultipleResults`, `searchAllBooksByAuthorIsCaseInsensitive`, `searchAllBooksByAuthorReturnsEmptyWhenNotFound`
 
 ---
 
@@ -177,11 +198,11 @@ src/
 ├── main/java/es/ing/tomillo/library/
 │   ├── model/
 │   │   ├── Book.java          ← ejercicio 1
-│   │   └── User.java          ← ejercicio 2
+│   │   ├── User.java          ← ejercicios 2 y 6
+│   │   └── Loan.java          ← ejercicio 7
 │   ├── service/
-│   │   ├── Library.java       ← ejercicios 3 y 5
-│   │   ├── LibraryCLI.java    ← menú interactivo (no modificar)
-│   │   └── LibraryJDBC.java   ← ejercicio 7 (avanzado)
+│   │   ├── Library.java       ← ejercicios 3, 5 y 8
+│   │   └── LibraryCLI.java    ← menú interactivo (no modificar)
 │   ├── exception/
 │   │   ├── BookNotAvailableException.java
 │   │   └── MaxBorrowedBooksException.java

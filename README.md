@@ -216,4 +216,4 @@ src/
 
 ## Dudas
 
-Contacta con el profesor en ing-tomillo-java@ing.com
+Contacta con los tutores en ing-tomillo-java@ing.com

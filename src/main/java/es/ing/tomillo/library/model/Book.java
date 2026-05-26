@@ -8,6 +8,10 @@ public class Book {
     // - autor (String)
     // - isbn (String)
     // - disponible (boolean)
+    private String titulo;
+    private String autor;
+    private String isbn;
+    private boolean disponible;
 
     // TODO: Implementar constructor según el ejercicio 1
     public Book() {

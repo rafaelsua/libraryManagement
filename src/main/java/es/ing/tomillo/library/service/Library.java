@@ -20,7 +20,6 @@ public class Library {
         // Cargar datos de ejemplo
         loadSampleData();
     }
-
     private void loadSampleData() {
         users.addAll(SampleData.SAMPLE_USERS);
         // books.addAll(SampleData.SAMPLE_BOOKS); // descomenta cuando implementes Book (ejercicio 1)
@@ -37,11 +36,12 @@ public class Library {
     }
 
     public void addUser(User user) {
-        users.add(user);
+        this.users.add(user);
     }
 
     public void addBook(Book book) {
         // TODO: Ejercicio 3 - añadir el libro a la lista 'books'
+        this.books.add(book);
     }
 
     public List<Book> getBooks() {

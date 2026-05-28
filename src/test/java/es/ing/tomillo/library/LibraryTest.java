@@ -252,6 +252,16 @@ public class LibraryTest {
         assertTrue(book1.isAvailable());
         assertTrue(user.getBorrowedBooks().isEmpty());
 
-
+    }
+    @Test
+    void disponivilidadLibros(){
+        Library library1 = new Library();
+        library1.listAvailableBooks();
+    }
+    @Test
+    void pedirLibroDosVeces(){
+        User usario = new User("bob",100);
+        usario.borrowBook(book1);
+        usario.borrowBook(book1);
     }
 }

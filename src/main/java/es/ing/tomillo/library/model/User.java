@@ -1,5 +1,6 @@
 package es.ing.tomillo.library.model;
 
+import es.ing.tomillo.library.exception.BookNotAvailableException;
 import es.ing.tomillo.library.exception.MaxBorrowedBooksException;
 import java.util.ArrayList;
 import java.util.List;

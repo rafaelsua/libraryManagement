@@ -264,4 +264,12 @@ public class LibraryTest {
         usario.borrowBook(book1);
         usario.borrowBook(book1);
     }
+
+    @Test
+    void reservarLibro(){
+        User usario = new User("bob",100);
+        usario.borrowBook(book1);
+        user.reserveBook(book1);
+        assertTrue(book1.isAvailable());
+    }
 }

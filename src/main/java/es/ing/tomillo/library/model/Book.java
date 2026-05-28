@@ -63,5 +63,6 @@ public class Book {
         Book book = (Book) o;
         return Objects.equals(isbn, book.isbn);
     }
+
 }
 

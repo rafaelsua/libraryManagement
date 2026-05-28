@@ -64,11 +64,21 @@ public class Library {
 
     // TODO: Ejercicio 5 - recorrer 'books' y devolver el libro cuyo título coincida (ignora mayúsculas)
     public Book searchBookByTitle(String title) {
+        for(Book book : books) {
+            if (book.getTitle().equals(title)) {
+                return book;
+            }
+        }
         return null;
     }
 
     // TODO: Ejercicio 5 - recorrer 'books' y devolver el libro cuyo autor coincida (ignora mayúsculas)
     public Book searchBookByAuthor(String author) {
+        for(Book book : books) {
+            if (book.getAuthor().equals(author)) {
+                return book;
+            }
+        }
         return null;
     }
 

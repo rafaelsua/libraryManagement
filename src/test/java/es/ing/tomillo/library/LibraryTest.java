@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class LibraryTest {
 
@@ -240,5 +241,10 @@ public class LibraryTest {
     @Test
     void searchAllBooksByAuthorReturnsEmptyWhenNotFound() {
         assertTrue(library.searchAllBooksByAuthor("Dickens").isEmpty());
+    }
+    @Test
+    void devolverLibroNoPrestado(){
+        User usario = new User("bob",100);
+        usario.borrowBook(book1);
     }
 }

@@ -49,21 +49,21 @@ public class User {
     // TODO: Implementar método prestarLibro según el ejercicio 2
     // Debe añadir un libro al array de libros prestados
     public void borrowBook(Book book) {
-        if (!book.isDisponible()) {
-            throw new BookNotAvailableException("El libro '" + book.getTitulo() + "' no está disponible.");
+        if (!book.isAvailable()) {
+            throw new BookNotAvailableException("El libro '" + book.getTitle() + "' no está disponible.");
         }
         if (borrowedBooks.size() >= MAX_BORROWED_BOOKS) {
             throw new MaxBorrowedBooksException("No se pueden prestar más de  libros.");
         }
         borrowedBooks.add(book);
-        book.setDisponible(false);
+        book.setAvailable(false);
     }
 
     // TODO: Implementar método devolverLibro según el ejercicio 2
     // Debe eliminar un libro del array de libros prestados
     public void returnBook(Book book) {
         if (borrowedBooks.remove(book)) {
-            book.setDisponible(true);
+            book.setAvailable(true);
         } else {
             System.out.println("Este libro no estaba prestado a este usuario.");
         }
@@ -72,7 +72,7 @@ public class User {
     // TODO: Implementar método reservarLibro según el ejercicio 2
     // Debe permitir reservar libros que no están disponibles
     public void reserveBook(Book book) {
-        if (!book.isDisponible()) {
+        if (!book.isAvailable()) {
             System.out.println("El libro ya está reservado.");
         } else {
             System.out.println("El libro está disponible para préstamo.");

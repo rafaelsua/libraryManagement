@@ -19,16 +19,16 @@ public class Book {
         this.autor = autor;
         this.isbn = isbn;
     }
-    public String getTitulo() {
+    public String getTitle() {
         return this.titulo;
     }
-    public void setTitulo(String titulo) {
+    public void setTitle(String titulo) {
         this.titulo = titulo;
     }
-    public String getAutor() {
+    public String getAuthor() {
         return this.autor;
     }
-    public void setAutor(String autor) {
+    public void setAuthor(String autor) {
         this.autor = autor;
     }
     public String getIsbn() {
@@ -39,6 +39,9 @@ public class Book {
     }
     public boolean isAvailable() {
         return disponible;
+    }
+    public void setAvailable(boolean disponible) {
+        this.disponible = disponible;
     }
     // TODO: Implementar getters y setters según el ejercicio 1
 

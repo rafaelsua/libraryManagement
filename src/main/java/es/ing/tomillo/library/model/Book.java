@@ -19,6 +19,7 @@ public class Book {
         this.autor = autor;
         this.isbn = isbn;
     }
+    // TODO: Implementar getters y setters según el ejercicio 1
     public String getTitle() {
         return this.titulo;
     }
@@ -43,11 +44,24 @@ public class Book {
     public void setAvailable(boolean disponible) {
         this.disponible = disponible;
     }
-    // TODO: Implementar getters y setters según el ejercicio 1
 
     // TODO: Implementar método toString según el ejercicio 1
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + this.titulo + '\'' +
+                ", author=" + this.autor +
+                ", isbn=" + this.isbn +
+                '}';
+    }
 
     // TODO: Implementar método equals para comparar libros por ISBN
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(isbn, book.isbn);
+    }
 }
 

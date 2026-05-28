@@ -75,6 +75,7 @@ public class User {
     public void reserveBook(Book book) {
         if (!book.isAvailable()) {
             System.out.println("El libro ya está reservado.");
+
         } else {
             System.out.println("El libro está disponible para préstamo.");
         }
@@ -84,9 +85,9 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", borrowedBooks=" + borrowedBooks.size() +
+                "name='" + this.name + '\'' +
+                ", id=" + this.id +
+                ", borrowedBooks=" + this.borrowedBooks.size() +
                 '}';
     }
 

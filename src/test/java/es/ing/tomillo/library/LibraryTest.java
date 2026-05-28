@@ -32,10 +32,6 @@ public class LibraryTest {
         library.addUser(user);
     }
 
-    // -------------------------------------------------------------------------
-    // Ejercicio 1 — clase Book
-    // -------------------------------------------------------------------------
-
     @Test
     void bookConstructorSetsAllFields() {
         assertEquals("Don Quijote", book1.getTitle());
@@ -75,10 +71,6 @@ public class LibraryTest {
         assertNotEquals(book1, book2);
     }
 
-    // -------------------------------------------------------------------------
-    // Ejercicio 2 — clase User: borrowBook / returnBook
-    // -------------------------------------------------------------------------
-
     @Test
     void userBorrowBookAddsToListAndSetsUnavailable() {
         user.borrowBook(book1);
@@ -106,7 +98,7 @@ public class LibraryTest {
     }
 
     @Test
-    void userCannotExceedMaxBorrowedBooks() {
+    void userCannotExceedMaxBorrowedBooks() throws InterruptedException {
         for (int i = 0; i < 5; i++) {
             user.borrowBook(new Book("Libro " + i, "Autor", "isbn-" + i));
         }
@@ -115,10 +107,6 @@ public class LibraryTest {
         assertThrows(MaxBorrowedBooksException.class, () -> user.borrowBook(extraBook),
                 "Superar el límite de 5 libros debe lanzar MaxBorrowedBooksException");
     }
-
-    // -------------------------------------------------------------------------
-    // Ejercicio 3 — clase Library: addBook, borrowBook, returnBook
-    // -------------------------------------------------------------------------
 
     @Test
     void libraryAddBookAndFindByTitle() {
@@ -141,11 +129,6 @@ public class LibraryTest {
         assertTrue(book1.isAvailable());
         assertTrue(user.getBorrowedBooks().isEmpty());
     }
-
-    // -------------------------------------------------------------------------
-    // Ejercicio 5 — búsqueda por título y autor
-    // -------------------------------------------------------------------------
-
     @Test
     void searchByTitleReturnsCorrectBook() {
         assertEquals(book2, library.searchBookByTitle("1984"));
@@ -165,10 +148,6 @@ public class LibraryTest {
     void searchByAuthorReturnsNullWhenNotFound() {
         assertNull(library.searchBookByAuthor("Autor inexistente"));
     }
-
-    // -------------------------------------------------------------------------
-    // Ejercicio 7 — clase Loan: préstamo con fechas
-    // -------------------------------------------------------------------------
 
     @Test
     void loanStoresBookUserAndDates() {
@@ -199,11 +178,6 @@ public class LibraryTest {
         Loan loan = new Loan(book1, user, LocalDate.now().minusDays(14));
         assertFalse(loan.isOverdue(), "Justo en la fecha límite no debe estar vencido");
     }
-
-    // -------------------------------------------------------------------------
-    // Ejercicio 8 — búsqueda con Streams
-    // -------------------------------------------------------------------------
-
     @Test
     void getAvailableBooksReturnsAllWhenNoneBorrowed() {
         assertEquals(2, library.getAvailableBooks().size());
@@ -241,4 +215,36 @@ public class LibraryTest {
     void searchAllBooksByAuthorReturnsEmptyWhenNotFound() {
         assertTrue(library.searchAllBooksByAuthor("Dickens").isEmpty());
     }
+    @Test
+        // Si todos los libros están prestados, la lista de disponibles está vacía
+    void getAvailableBooksReturnsEmptyWhenAllBorrowed() {
+        library.borrowBook(user, book1);
+        library.borrowBook(user, book2);
+        assertTrue(library.getAvailableBooks().isEmpty());
+    }
+    @Test
+        // Intentar devolver un libro que el usuario no tiene prestado
+    void returnBookNotBorrowedDoesNothing() {
+        library.returnBook(user, book1); // nunca lo pidió
+        assertTrue(user.getBorrowedBooks().isEmpty());
+        assertTrue(book1.isAvailable());
+    }
+    @Test
+        // Para reservar, el libro debe estar prestado primero
+
+    void reserveBookAddsToReservedList() {
+        user.borrowBook(book1); // book1 ya no está disponible
+        User otherUser = new User("Bob", 100);
+        otherUser.reserveBook(book1);
+        assertTrue(otherUser.getReservedBooks().contains(book1));
+    }
+
+    @Test
+        // Un libro disponible no se puede reservar (no tiene sentido)
+
+    void reserveAvailableBookDoesNotAddToList() {
+        user.reserveBook(book1); // book1 está disponible
+        assertTrue(user.getReservedBooks().isEmpty());
+    }
+
 }

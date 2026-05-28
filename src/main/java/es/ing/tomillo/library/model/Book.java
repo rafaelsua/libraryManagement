@@ -14,9 +14,11 @@ public class Book {
     private boolean disponible;
 
     // TODO: Implementar constructor según el ejercicio 1
-    public Book() {
+    public Book(String titulo, String autor, String isbn, boolean disponible) {
     }
-
+    public boolean isAvailable() {
+        return disponible;
+    }
     // TODO: Implementar getters y setters según el ejercicio 1
 
     // TODO: Implementar método toString según el ejercicio 1

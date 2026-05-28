@@ -14,7 +14,28 @@ public class Book {
     private boolean disponible;
 
     // TODO: Implementar constructor según el ejercicio 1
-    public Book(String titulo, String autor, String isbn, boolean disponible) {
+    public Book(String titulo, String autor, String isbn) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.isbn = isbn;
+    }
+    public String getTitulo() {
+        return this.titulo;
+    }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    public String getAutor() {
+        return this.autor;
+    }
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+    public String getIsbn() {
+        return this.isbn;
+    }
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
     public boolean isAvailable() {
         return disponible;

@@ -22,7 +22,7 @@ public class Library {
     }
     private void loadSampleData() {
         users.addAll(SampleData.SAMPLE_USERS);
-        // books.addAll(SampleData.SAMPLE_BOOKS); // descomenta cuando implementes Book (ejercicio 1)
+        books.addAll(SampleData.SAMPLE_BOOKS); // descomenta cuando implementes Book (ejercicio 1)
         System.out.println("Datos de ejemplo cargados: " + users.size() + " usuarios, " + books.size() + " libros.");
     }
 
@@ -104,12 +104,12 @@ public class Library {
 
     // TODO: Ejercicio 8 — usando stream().filter() devuelve la lista de libros disponibles
     public List<Book> getAvailableBooks() {
-        return new ArrayList<>();
+        return books.stream().filter(Book::isAvailable).toList();
     }
 
     // TODO: Ejercicio 8 — usando stream().filter() devuelve todos los libros del autor dado (ignora mayúsculas)
     public List<Book> searchAllBooksByAuthor(String author) {
-        return new ArrayList<>();
+        return books.stream().filter(book -> book.getAuthor().equals(author)).toList();
     }
 
 }

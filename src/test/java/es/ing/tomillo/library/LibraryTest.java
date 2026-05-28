@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LibraryTest {
 
@@ -246,5 +247,11 @@ public class LibraryTest {
     void devolverLibroNoPrestado(){
         User usario = new User("bob",100);
         usario.borrowBook(book1);
+        user.reserveBook(book1);
+        usario.returnBook(book1);
+        assertTrue(book1.isAvailable());
+        assertTrue(user.getBorrowedBooks().isEmpty());
+
+
     }
 }
